@@ -337,6 +337,15 @@ window.addEventListener('DOMContentLoaded', function() {
           }
           else window.alert('Error: Bluetooth MAC changer is currently available on Nokia handsets only')
           break  
+        case 'SoftRight':
+          if(window.confirm('Do you really want to make all pre-installed apps removable from the menu (requires Busybox) and reboot?')) {
+            Wallace.runCmd('busybox sed -i \'s#"removable": false#"removable": true#g\' /data/local/webapps/webapps.json', function() {
+              Wallace.reboot()
+            }, function(e) {
+              window.alert('Error: ' + e)
+            })
+          }  
+          break
         default:
           break
       }

@@ -2,17 +2,17 @@
 
 ## About
 
-Universal toolbox for KaiOS internal tweaking - 14 useful functions packed in one small app.
+Universal toolbox for KaiOS internal tweaking - 15 useful functions packed in one small app.
 
 Based on [LibWallace](https://gist.github.com/plugnburn/00fa61006513cdb0a12adf61a6e425e1) and several independent researches.
 
 ## Current version
 
-0.0.5
+0.0.6
 
 ## Current feature list
 
-- `1`: ADB root (needs Busybox for the operation, you may use [OmniBB](https://gitlab.com/suborg/omnibb) to install it if missing)
+- `1`: ADB root (requires Busybox for the operation, you may use [OmniBB](https://gitlab.com/suborg/omnibb) to install it if missing)
 - `2`: Call recording on/auto/off (works on KaiOS 2.5.2 and higher, tested on Nokia 2720 Flip and Nokia 800 Tough)
 - `3`: Install application package (OmniSD/GerdaPkg compatible, works when developer menu is enabled, tested on Nokias only)
 - `4`: Override TTL when tethering until reboot (Qualcomm devices only)
@@ -26,10 +26,12 @@ Based on [LibWallace](https://gist.github.com/plugnburn/00fa61006513cdb0a12adf61
 - `#`: Enable developer menu and privileged access (via cache injection method)
 - `Call`: Edit Wi-Fi MAC address (Nokia and MediaTek devices only, temporary for MediaTeks)
 - Left soft key: Edit Bluetooth MAC address (Nokia devices only)
+- Right soft key: Make all pre-installed apps removable from the app menu without affecting system partition (requires Busybox for the operation)
 
 ## Installation
 
 Use standard WebIDE connection (old Firefox or Pale Moon) or [gdeploy](https://gitlab.com/suborg/gdeploy) to install the app directly onto your device.
+You can also use the `build.sh` script to build an OmniSD/GerdaPkg/WT compatible application package from the current Git snapshot.
 
 ## Credits
 
