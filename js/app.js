@@ -130,7 +130,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 var newIMEI = Wallace.generateRandomIMEI()
                 if(newIMEI) {
                   actionLock = true
-                  Wallace.setNokiaIMEI(2, newIMEI, function() {
+                  Wallace.setNokiaIMEI(1, newIMEI, function() {
                     if(window.confirm('IMEI changed to ' + newIMEI + '. Reboot to apply?'))
                       Wallace.reboot()
                     actionLock = false
@@ -144,7 +144,23 @@ window.addEventListener('DOMContentLoaded', function() {
           } else window.alert('Error: IMEI editor is implemented for Nokia handsets only')
           break
         case '6': //TAC IMEI
-          window.alert('Err: Not implemented yet')
+          if(enableNokiaActions) {
+              if(window.confirm('Are you sure you really want to change IMEI')) {
+                var newIMEI = Wallace.generateRandomIMEI('35323210') // 35323210 is Apple Iphone 11 TAC
+                if(newIMEI) {
+                  actionLock = true
+                  Wallace.setNokiaIMEI(1, newIMEI, function() {
+                    if(window.confirm('IMEI changed to ' + newIMEI + '. Reboot to apply?'))
+                      Wallace.reboot()
+                    actionLock = false
+                  }, function(e) {
+                    window.alert('Error: invalid IMEI')
+                    actionLock = false
+                  })
+                }
+              }
+              break
+          } else window.alert('Error: IMEI editor is implemented for Nokia handsets only')
           break
         case '7': //Proxy on/off
           Wallace.getSystemSetting('browser.proxy.enabled', function(res) {
