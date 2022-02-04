@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "custom",
   "name": "Wallace Toolbox",
   "description": "An ultimate KaiOS toolbox",
   "launch_path": "/index.html",
@@ -9,9 +9,8 @@
     "112": "/img/werewolf-112.png"
   },
   "developer": {
-    "name": "Luxferre"
+    "name": "bananahackers"
   },
-  "origin": "app://wallace-toolbox.bananahackers.net",
   "fullscreen": true,
   "permissions": {
     "engmode-extension": {
