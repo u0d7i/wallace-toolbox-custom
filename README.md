@@ -1,5 +1,5 @@
 # Custom Wallace Toolbox
 
-This is a custom version of [Wallace Toolbox](https://gitlab.com/suborg/wallace-toolbox) by Luxferre.
+This is a custom version of [Wallace Toolbox](https://gitlab.com/suborg/wallace-toolbox).
 
-For normal use please install the official version from the repository above.
+For normal use please install the official version by Luxferre from the repository above.

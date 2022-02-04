@@ -32,9 +32,6 @@ window.addEventListener('DOMContentLoaded', function() {
       el.classList.remove('danger')
       el.classList.add('disabled')
     })
-
-  if(!enableCallRecordingActions)
-    document.querySelector('.callrec').classList.add('disabled')
   
   var overclockScript = [
     'echo 96 > /sys/devices/system/cpu/cpufreq/interactive/target_loads',
@@ -68,28 +65,7 @@ window.addEventListener('DOMContentLoaded', function() {
             })
           })
           break
-        case '2': //call recording AUTO/ON/OFF
-          if(enableCallRecordingActions) {
-            Wallace.getSystemSetting('callrecording.mode', function(curMode) {
-              var nextMode = 'on'
-              if(curMode === 'auto') nextMode = 'off'
-              else if(curMode === 'on') nextMode = 'auto'
-              Wallace.enableCallRecording(nextMode, 'wav', function() {
-                var msgs = {
-                  'on': 'set to manual',
-                  'auto': 'set to automatic',
-                  'off': 'disabled'
-                }
-                window.alert('Call recording ' + msgs[nextMode])
-              }, function(e) {
-                window.alert('Error: ' + e)
-              })
-            }, function(e) {
-              window.alert('Error: ' + e)
-            })
-          } else window.alert('Sorry, call recording is implemented in KaiOS 2.5.2 and above, but you have ' + currentKaiosVersion)
-          break
-        case '3': //install app package
+        case '2': //install app package
           actionLock = true
           var pickPackage = new MozActivity({name: "pick"})
           pickPackage.onsuccess = function() {
@@ -109,7 +85,7 @@ window.addEventListener('DOMContentLoaded', function() {
             actionLock = false
           }
           break
-        case '4': //override TTL
+        case '3': //override TTL
           if(enableQualcommActions) {
             actionLock = true
             var newTTL = parseInt(window.prompt('New TTL value', 64))
@@ -129,14 +105,14 @@ window.addEventListener('DOMContentLoaded', function() {
           }
           else window.alert('Error: TTL can be overridden on Qualcomm platform only')
           break
-        case '5': //Edit IMEI1
+        case '4': //Edit IMEI
           if(enableNokiaActions) {
-            if(window.confirm('Are you sure you really want to change IMEI1?')) {
-              var newIMEI = window.prompt('New IMEI1', Wallace.generateRandomIMEI())
+            if(window.confirm('Are you sure you really want to change IMEI?')) {
+              var newIMEI = window.prompt('New IMEI', Wallace.generateRandomIMEI())
               if(newIMEI) {
                 actionLock = true
                 Wallace.setNokiaIMEI(1, newIMEI, function() {
-                  if(window.confirm('IMEI1 changed to ' + newIMEI + '. Reboot to apply?'))
+                  if(window.confirm('IMEI changed to ' + newIMEI + '. Reboot to apply?'))
                     Wallace.reboot()
                   actionLock = false
                 }, function(e) {
@@ -146,33 +122,16 @@ window.addEventListener('DOMContentLoaded', function() {
               }
             }
             break
-          } else if(enableMtkActions) {
-            if(window.confirm('Are you sure you really want to change IMEI1?')) {
-              var newIMEI = window.prompt('New IMEI1', Wallace.generateRandomIMEI())
-              if(newIMEI) {
-                actionLock = true
-                Wallace.setMtkIMEI(1, newIMEI, function() {
-                  if(window.confirm('IMEI1 changed to ' + newIMEI + '. Reboot to apply?'))
-                    Wallace.reboot()
-                  actionLock = false
-                }, function(e) {
-                  window.alert('Error: invalid IMEI')
-                  actionLock = false
-                })
-              }
-            }
-            break
-          } else window.alert('Error: IMEI editor is implemented for Nokia and MTK handsets only')
+          } else window.alert('Error: IMEI editor is implemented for Nokia handsets only')
           break
-        case '6': //Edit IMEI2
+        case '5': // Random IMEI
           if(enableNokiaActions) {
-            if(enableSim2Actions) {
-              if(window.confirm('Are you sure you really want to change IMEI2?')) {
-                var newIMEI = window.prompt('New IMEI2', Wallace.generateRandomIMEI())
+              if(window.confirm('Are you sure you really want to change IMEI')) {
+                var newIMEI = Wallace.generateRandomIMEI()
                 if(newIMEI) {
                   actionLock = true
                   Wallace.setNokiaIMEI(2, newIMEI, function() {
-                    if(window.confirm('IMEI2 changed to ' + newIMEI + '. Reboot to apply?'))
+                    if(window.confirm('IMEI changed to ' + newIMEI + '. Reboot to apply?'))
                       Wallace.reboot()
                     actionLock = false
                   }, function(e) {
@@ -182,26 +141,10 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
               }
               break
-            } else window.alert('Error: trying to change IMEI2 on a single-SIM configuration')
-          } else if(enableMtkActions) {
-            if(enableSim2Actions) {
-              if(window.confirm('Are you sure you really want to change IMEI2?')) {
-                var newIMEI = window.prompt('New IMEI2', Wallace.generateRandomIMEI())
-                if(newIMEI) {
-                  actionLock = true
-                  Wallace.setMtkIMEI(2, newIMEI, function() {
-                    if(window.confirm('IMEI2 changed to ' + newIMEI + '. Reboot to apply?'))
-                      Wallace.reboot()
-                    actionLock = false
-                  }, function(e) {
-                    window.alert('Error: invalid IMEI')
-                    actionLock = false
-                  })
-                }
-              }
-              break
-            } else window.alert('Error: trying to change IMEI2 on a single-SIM configuration')
-          } else window.alert('Error: IMEI editor is implemented for Nokia and MTK handsets only')
+          } else window.alert('Error: IMEI editor is implemented for Nokia handsets only')
+          break
+        case '6': //TAC IMEI
+          window.alert('Err: Not implemented yet')
           break
         case '7': //Proxy on/off
           Wallace.getSystemSetting('browser.proxy.enabled', function(res) {
